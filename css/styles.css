@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&display=swap');
+
 /* Reset y configuración base */
 * {
     margin: 0;
@@ -27,6 +29,7 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 3px solid #D2B48C;
+    font-family: 'EB Garamond', serif;
 }
 
 .header-content {
@@ -246,7 +249,7 @@ header {
 /* Estilos para páginas de tesis */
 .thesis-title {
     color: #2c3e50;
-    font-size: 2rem;
+    font-size: 1.5rem !important;
     margin-bottom: 30px;
     text-align: left;
 }
@@ -302,10 +305,25 @@ header {
 }
 
 .quote p {
-    font-style: italic;
+    font-style: normal; /*italic para cursiva*/
     color: #555;
     font-size: 1.1rem;
     line-height: 1.6;
+}
+
+.quote-source {
+    font-style: italic;
+    color: #8b6f47;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted #8b6f47;
+    margin-left: 8px;
+}
+
+.quote-source:hover {
+    color: #a0764f;
+    border-bottom-style: solid;
 }
 
 .note-toggle {
@@ -622,7 +640,14 @@ footer a:hover {
     .quote p {
         font-size: 1rem;
     }
-    
+
+    .quote-source {
+        font-size: 0.9rem; /* Tamaño más pequeño para móviles */
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 0; /* Elimina margen izquierdo en pantallas pequeñas */
+    }
+}
     .category-header {
         padding: 12px 15px;
         font-size: 0.8rem;
