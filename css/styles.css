@@ -318,7 +318,7 @@ header {
     text-decoration: none;
     transition: all 0.3s ease;
     border-bottom: 1px dotted #8b6f47;
-    margin-left: 8px;
+    /* margin-left: 8px;*/
 }
 
 .quote-source:hover {
@@ -643,9 +643,9 @@ footer a:hover {
 
     .quote-source {
         font-size: 0.9rem; /* Tamaño más pequeño para móviles */
-        display: inline-block;
-        margin-top: 10px;
-        margin-left: 0; /* Elimina margen izquierdo en pantallas pequeñas */
+        display: inline;
+        margin-top: 0px;
+        /* margin-left: 8px;  Elimina margen izquierdo en pantallas pequeñas */
     }
 }
     .category-header {
@@ -665,7 +665,6 @@ footer a:hover {
     .theses a {
         font-size: 1rem;
     }
-}
 
 /* Móviles muy pequeños */
 @media (max-width: 320px) {

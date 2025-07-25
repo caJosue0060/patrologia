@@ -88,18 +88,26 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Funcionalidad de las notas
+        // Funcionalidad de las notas (versión actualizada y más robusta)
         document.addEventListener('click', function(e) {
+            // Para abrir una nota
             if (e.target.classList.contains('note-toggle')) {
-                const note = e.target.parentElement.nextElementSibling;
-                if(note) note.classList.toggle('visible');
+                // Busca el contenedor padre (.citation o .objection) y luego la nota dentro de él.
+                const parentContainer = e.target.closest('.citation, .objection');
+                if (parentContainer) {
+                    const note = parentContainer.querySelector('.note');
+                    if (note) {
+                        note.classList.toggle('visible');
+                    }
+                }
             }
             
+            // Para cerrar una nota
             if (e.target.classList.contains('close-note')) {
                 e.target.closest('.note').classList.remove('visible');
             }
         });
-
+        
         // Cerrar menú móvil al cambiar tamaño de ventana
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
