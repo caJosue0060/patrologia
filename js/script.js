@@ -88,25 +88,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Funcionalidad de las notas (versión actualizada y más robusta)
-        document.addEventListener('click', function(e) {
-            // Para abrir una nota
-            if (e.target.classList.contains('note-toggle')) {
-                // Busca el contenedor padre (.citation o .objection) y luego la nota dentro de él.
-                const parentContainer = e.target.closest('.citation, .objection');
-                if (parentContainer) {
-                    const note = parentContainer.querySelector('.note');
-                    if (note) {
-                        note.classList.toggle('visible');
-                    }
-                }
-            }
-            
-            // Para cerrar una nota
-            if (e.target.classList.contains('close-note')) {
-                e.target.closest('.note').classList.remove('visible');
-            }
-        });
+        // Funcionalidad de las notas (versión actualizada y más robusta)
+        document.addEventListener('click', function(e) {
+            // Para abrir una nota
+            if (e.target.classList.contains('note-toggle')) {
+                // CORRECCIÓN: Busca el contenedor padre más cercano que sea '.quote' O '.objection'.
+                const parentContainer = e.target.closest('.quote, .objection');
+                
+                if (parentContainer) {
+                    // Ahora, busca la nota (.note) DENTRO de ese contenedor específico (sea quote u objection).
+                    const note = parentContainer.querySelector('.note');
+                    if (note) {
+                        note.classList.toggle('visible');
+                    }
+                }
+            }
+            
+            // Para cerrar una nota (esto no necesita cambios)
+            if (e.target.classList.contains('close-note')) {
+                e.target.closest('.note').classList.remove('visible');
+            }
+        });
         
         // Cerrar menú móvil al cambiar tamaño de ventana
         window.addEventListener('resize', function() {
@@ -163,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Añadir clase active al enlace actual en el sidebar (opcional)
         const currentPath = window.location.pathname;
+        /* Esta parte es para que solo se resalte los submenus
         document.querySelectorAll('.submenu a').forEach(link => {
             if (link.getAttribute('href') === currentPath) {
                 link.style.background = 'rgba(210, 180, 140, 0.2)';
@@ -178,8 +181,61 @@ document.addEventListener('DOMContentLoaded', function() {
                     parentToggle.classList.add('active');
                 }
             }
+        }); */
+
+        // Aqui para que se resalten submenus y categorias directas
+        // 1. Manejar los enlaces dentro de submenús
+        document.querySelectorAll('.submenu a').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.style.background = 'rgba(210, 180, 140, 0.2)';
+                link.style.borderLeftColor = '#D2B48C';
+                link.style.color = '#D2B48C';
+                
+                // Abrir el menú padre
+                const parentSubmenu = link.closest('.submenu');
+                if (parentSubmenu) {
+                    parentSubmenu.classList.add('active');
+                    const parentToggle = parentSubmenu.parentElement.querySelector('.toggle');
+                    if (parentToggle) {
+                        parentToggle.textContent = '−';
+                        parentToggle.classList.add('active');
+                    }
+                }
+            }
         });
+
+        // 2. Manejar los enlaces de categoría directos (como "LAS ESCRITURAS")
+        document.querySelectorAll('a.category-header').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active'); // Usa la clase CSS que agregamos
+            }
+        });
+        // 1. Ajusta los settings
+window.gtranslateSettings = {
+  default_language: "es",
+  detect_browser_language: true,
+  languages: ["es","en"],
+  wrapper_selector: ".gtranslate_wrapper",
+  alt_flags: { "en": "usa" }
+};
+
+// 2. Inserta el div (si no viene en el footer)
+const wrapper = document.querySelector('.gtranslate_wrapper');
+if (!wrapper) {
+  const c = document.querySelector('.container', document.querySelector('footer'));
+  const div = document.createElement('div');
+  div.className = 'gtranslate_wrapper';
+  c.appendChild(div);
+}
+
+// 3. Carga el script del widget
+const gts = document.createElement('script');
+gts.src = "https://cdn.gtranslate.net/widgets/latest/flags.js";
+gts.defer = true;
+document.body.appendChild(gts);
+
     };
 
     loadAndInit();
 });
+
